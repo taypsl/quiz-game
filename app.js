@@ -49,6 +49,8 @@ var allQuestions = [{
 		correctAnswer:1
 	}];
 
+console.log(allQuestions[0].question);
+
 var results = [{
 		score: 25, 
 		output: "Not to worry, not to worry, there's still time to prepare before December 17th."
@@ -63,10 +65,9 @@ var results = [{
 		output: "Merlin's pants! With scores like that you could give Hermione Granger a run."
 	}];
 
-console.log(state.pageCounter);
 // functions that modify state
 var increasePageCounter = function(state, pageCounter) {
-	state.pageCounter += 1;
+	pageCounter++;
 };
 
 var addUserChoice = function(state, pageCounter) {
@@ -74,16 +75,18 @@ var addUserChoice = function(state, pageCounter) {
 	state.userChoice[pageCounter].push(choice);
 };
 
-var displayNextQuestion = function(state, pageCounter, allQuestions) {
+var displayNextQuestion = function(state, pageCounter) {
 	var questionHtml = $('.question');
-	var questionText = allQuestions[state.pageCounter].question;
+	var questionText = allQuestions[pageCounter].question;
 	questionHtml.append(questionText);
 	// $('.question').append(allQuestions[state.pageCounter].question);
 
 	var choicesHtml = $('.button-label');
-	var choicesText = allQuestions[state.pageCounter].choices;
+	var choicesText = allQuestions[state.pageCounter].choices[i];
+	for (i=0; i<4; i++) {
+		
 	choicesHtml.append(choicesText);
-	// $('.button-label');
+	// $('.button-label').append('allQuestions[state.pageCounter].choices');
 };
 
 
@@ -121,12 +124,15 @@ var resultsText = function(quizScore) {
 // event handlers
 
 $('.start-quiz').click(function(e) {
-	displayNextQuestion(state, pageCounter);
-	$('.quiz-page').toggleClass('hidden');
+	displayNextQuestion(state, 0);
+	$('.quiz-page').removeClass('hidden');
+	$('.answer-choice').removeClass('hidden');
+
+	$('.intro').addClass('hidden');
 });
 
 $('.answer-choice').on('click', '.button-label', function(e) {
-	addUserChoice(state, pageCounter);
+	addUserChoice(state, state.pageCounter);
 	checkAnswer(state, userChoice, correctAnswer, pageCounter);
 }) 
 
@@ -137,7 +143,8 @@ $('#next').click(function(event) {
 	displayNextQuestion(state, pageCounter);
 	$('.page-number').text('state.pageCounter' + '/10')
 	if (state.pageCounter === 10) {
-		$('.quiz-page').toggleClass('hidden'); //might have to be specific about page add/remove to hide next and unhide try again
+		$('.quiz-page>.answer-choice.hidden').addClass('hidden');
+		$('.results').removeClass('hidden');
 		$('h1').text(quizScore);
 		$('.score').text(resultsText);
 		$('.page-number').addClass('hidden');
