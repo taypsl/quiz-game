@@ -3,7 +3,7 @@ $(document).ready(function() {
 // state
 var state = {
 		userChoices: [], 
-		pageCounter: 0,	
+		pageCount: 0,	
 		numberCorrect: 0,
 }
 
@@ -64,15 +64,15 @@ var results = [{
 	}];
 
 // game logic 
-var increasePageCounter = function(state) {
-	state.pageCounter++;
+var increasePageCount = function(state) {
+	state.pageCount++;
 };
 
 var addUserChoice = function(state, choice) {
-  state.userChoices[state.pageCounter] = choice;
+  state.userChoices[state.pageCount] = choice;
 };
 
-var quizScore = function(state, userChoice, pageCounter, correctAnswer) {
+var quizScore = function(state, correctAnswer) {
 	var finalScore = (numberCorrect / 10) * 100;
 };
 	
@@ -90,64 +90,66 @@ var resultsText = function(quizScore) {
 		results[3].output;
 	}
 };
-// functions that display to screen
-var displayNextQuestion = function(state, pageCounter, allQuestions) {
-	var questionHtml = $('.question');
-	var questionText = allQuestions[pageCounter].question;
-	questionHtml.text(questionText);
 
-	var choices = allQuestions[state.pageCounter].choices;
+// functions that display to screen
+var displayNextQuestion = function(state, allQuestions) {
+	$('.question').text(allQuestions[state.pageCount].question); //display question
+
+	var choices = allQuestions[state.pageCount].choices;		 //display answer choices
     for (var i=0; i<choices.length; i++) {
       $('.button-label#' + i).text(choices[i]);
     }
 };
 
 var checkAnswer = function(state) {
-	if (state.userChoices[state.pageCounter] == allQuestions[state.pageCounter].correctAnswer) { 
-		$('.button-label#' + allQuestions[state.pageCounter].correctAnswer).closest('button').css('border', '3px solid green');
+	if (state.userChoices[state.pageCount] == allQuestions[state.pageCount].correctAnswer) { 
+		$('.button-label#' + allQuestions[state.pageCount].correctAnswer).closest('button').css('border', '3px solid green');
 		state.numberCorrect++; 
 		console.log('right');
 	} 
 	else {
-		$(this).closest('button').css('border', '3px solid green');
-		$('.button-label#' + allQuestions[state.pageCounter].correctAnswer).closest('button').css('border', '3px solid green');
+		$(this).closest('button').css('border', '3px solid red');	//('this') is calling .button-label?	
+		$('.button-label#' + allQuestions[state.pageCount].correctAnswer).closest('button').css('border', '3px solid green');
   		console.log('wrong');
   }
   $('#next').toggleClass('hidden');
 };
 
-
-
 // event handlers
 $('.start-quiz').click(function(e) {
-	displayNextQuestion(state, 0, allQuestions);
+	displayNextQuestion(state, allQuestions);
+	state.pageCount = 0;
 	$('.quiz-page').removeClass('hidden');
 	$('.answer-choice').removeClass('hidden');
 	$('.intro').addClass('hidden');
 });
 
-$('.answer-choice').one('click', '.button-label', function(e) {
+$('.answer-choice').on('click', '.button-label', function(e) {
 	var choice = $(this).attr('id');
   	addUserChoice(state, choice);
-	checkAnswer(state);
-	$(".answer-choice[type=submit]").attr('disabled','disabled');
+  	checkAnswer(state);
+
+	$('.answer-choice[type=submit]').prop('disabled', true); //disable button
+
 });
 
 $('#next').click(function(e) {
 	e.preventDefault();
-	increasePageCounter(state);
-	displayNextQuestion(state, pageCounter, allQuestions);
+	increasePageCount(state);
+	displayNextQuestion(state, allQuestions);
+	$('.answer-choice[type=submit').prop('disabled', false); //re-enable button
 	$('#next').toggleClass('hidden');
-	$('.page-number').text('state.pageCounter' + '/10')
-	if (state.pageCounter === 10) {
+	$('.page-number').text('Page ' + state.pageCount + '/10')
+	if (state.pageCount === 10) {
 		$('.quiz-page>.answer-choice.hidden').addClass('hidden');
 		$('.results').removeClass('hidden');
 		$('h1').text(quizScore);
 		$('.score').text(resultsText);
 		$('.page-number').addClass('hidden');
 	}
+	console.log(state.pageCount);
+	console.log(state.numberCorrect);
 });
-
 
 
 

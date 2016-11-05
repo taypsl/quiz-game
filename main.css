@@ -71,6 +71,8 @@ p {
 } 
 
 .page-number {
-  font-size: small;
+  font-size: 15px;
+  color: gainsboro;
   text-align: center;
+  margin: 20px;
 }
