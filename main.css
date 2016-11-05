@@ -9,20 +9,15 @@ body {
 .container {
   max-width: 600px;
   margin: 100px auto 0 auto;
+  text-align: center;
+  margin-top: 150px;
 }
 
 /* page 1 */
-.intro {
-  margin-top: 200px;
-}
-
-.title-text {
-  text-align: center;
-}
 
 .hp-text {
-	font-family: ;
-	font-size: ;
+  font-family: 'Satisfy', cursive;
+  font-size: 40px;
 }
 
 button, input[type="text"] {
@@ -47,25 +42,24 @@ p {
 /* question pages */
 
 .quiz-page {
-  
+
 }
 
 .answer-choice {
-  width: 200px;
+  width: 400px;
   margin-bottom: 20px;
   border: 1px solid grey;
-  padding: 20px;
 }
 
 .right-answer {
-  width: 200px;
+  width: 400px;
   margin-bottom: 20px;
   border: 1px solid green;
   padding: 20px;
 }
 
 .wrong-answer {
-  width: 200px;
+  width: 400px;
   margin-bottom: 20px;
   border: 1px solid red;
   padding: 20px;

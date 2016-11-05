@@ -49,8 +49,6 @@ var allQuestions = [{
 		correctAnswer:1
 	}];
 
-console.log(allQuestions[0].question);
-
 var results = [{
 		score: 25, 
 		output: "Not to worry, not to worry, there's still time to prepare before December 17th."
@@ -65,41 +63,13 @@ var results = [{
 		output: "Merlin's pants! With scores like that you could give Hermione Granger a run."
 	}];
 
-// functions that modify state
-var increasePageCounter = function(state, pageCounter) {
-	pageCounter++;
+// game logic 
+var increasePageCounter = function(state) {
+	state.pageCounter++;
 };
 
-var addUserChoice = function(state, pageCounter) {
-	var choice = $('this').val();
-	state.userChoice[pageCounter].push(choice);
-};
-
-var displayNextQuestion = function(state, pageCounter) {
-	var questionHtml = $('.question');
-	var questionText = allQuestions[pageCounter].question;
-	questionHtml.append(questionText);
-	// $('.question').append(allQuestions[state.pageCounter].question);
-
-	var choicesHtml = $('.button-label');
-	var choicesText = allQuestions[state.pageCounter].choices[i];
-	for (i=0; i<4; i++) {
-		
-	choicesHtml.append(choicesText);
-	// $('.button-label').append('allQuestions[state.pageCounter].choices');
-};
-
-
-var checkAnswer = function(userChoice, correctAnswer, pageCounter) {
-	if (userChoices[state.pageCounter] === allQuestions[state.pageCounter].choices[correctAnswer]) { 
-		$(this).addClass('right-answer');
-		state.numberCorrect +=1; 
-	} 
-	else {
-		$(this).addClass('wrong-answer');
-		allQuestions[state.pageCounter].choices[correctAnswer];
-		$('button-label').find(correctAnswer[state.pageCounter]).addClass('right-answer');
-	}
+var addUserChoice = function(state, choice) {
+  state.userChoices[state.pageCounter] = choice;
 };
 
 var quizScore = function(state, userChoice, pageCounter, correctAnswer) {
@@ -120,27 +90,54 @@ var resultsText = function(quizScore) {
 		results[3].output;
 	}
 };
+// functions that display to screen
+var displayNextQuestion = function(state, pageCounter, allQuestions) {
+	var questionHtml = $('.question');
+	var questionText = allQuestions[pageCounter].question;
+	questionHtml.text(questionText);
+
+	var choices = allQuestions[state.pageCounter].choices;
+    for (var i=0; i<choices.length; i++) {
+      $('.button-label#' + i).text(choices[i]);
+    }
+};
+
+var checkAnswer = function(state) {
+	if (state.userChoices[state.pageCounter] == allQuestions[state.pageCounter].correctAnswer) { 
+		$('.button-label#' + allQuestions[state.pageCounter].correctAnswer).closest('button').css('border', '3px solid green');
+		state.numberCorrect++; 
+		console.log('right');
+	} 
+	else {
+		$(this).closest('button').css('border', '3px solid green');
+		$('.button-label#' + allQuestions[state.pageCounter].correctAnswer).closest('button').css('border', '3px solid green');
+  		console.log('wrong');
+  }
+  $('#next').toggleClass('hidden');
+};
+
+
 
 // event handlers
-
 $('.start-quiz').click(function(e) {
-	displayNextQuestion(state, 0);
+	displayNextQuestion(state, 0, allQuestions);
 	$('.quiz-page').removeClass('hidden');
 	$('.answer-choice').removeClass('hidden');
-
 	$('.intro').addClass('hidden');
 });
 
-$('.answer-choice').on('click', '.button-label', function(e) {
-	addUserChoice(state, state.pageCounter);
-	checkAnswer(state, userChoice, correctAnswer, pageCounter);
-}) 
+$('.answer-choice').one('click', '.button-label', function(e) {
+	var choice = $(this).attr('id');
+  	addUserChoice(state, choice);
+	checkAnswer(state);
+	$(".answer-choice[type=submit]").attr('disabled','disabled');
+});
 
-
-$('#next').click(function(event) {
+$('#next').click(function(e) {
 	e.preventDefault();
-	increasePageCounter(state, pageCounter);
-	displayNextQuestion(state, pageCounter);
+	increasePageCounter(state);
+	displayNextQuestion(state, pageCounter, allQuestions);
+	$('#next').toggleClass('hidden');
 	$('.page-number').text('state.pageCounter' + '/10')
 	if (state.pageCounter === 10) {
 		$('.quiz-page>.answer-choice.hidden').addClass('hidden');
@@ -149,7 +146,7 @@ $('#next').click(function(event) {
 		$('.score').text(resultsText);
 		$('.page-number').addClass('hidden');
 	}
-})
+});
 
 
 
