@@ -115,7 +115,7 @@ $(document).ready(function() {
 		}
 		$('#next').removeClass('hidden');
 	};
-	
+	 
 	
 	// Event handlers
 	$('.start-quiz').click(function(e) {
