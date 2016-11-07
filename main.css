@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+html { 
+  background: url(images/hpbackground2.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -15,9 +23,14 @@ body {
 
 /* page 1 */
 
+h1, p, h2, .page-number {
+  color: #d7d7d7;
+}
+
 .hp-text {
   font-family: 'Satisfy', cursive;
   font-size: 40px;
+  color: #e7b418;
 }
 
 button, input[type="text"] {
@@ -28,15 +41,16 @@ button, input[type="text"] {
 }
 
 button:hover {
-  cursor: pointer;
+  cursor: url(http://cur.cursors-4u.net/user/use-1/use160.cur), auto;
 }
 
 .button-label {
   font-size: medium;
+  color: #1a223c;
 }
 
-.start-quiz {
-  margin-top: 20px;
+.start-quiz:span {
+  margin-top: 40px;
 }
 
 p {
@@ -49,14 +63,17 @@ p {
   width: 400px;
   margin-bottom: 20px;
   border: 1px solid grey;
+  border-radius: 15px;
 }
 
 .right-answer {
-  border: 3px solid green;
+  border: 1px solid #6abb6d; 
+  background-color: #6abb6d;
 }
 
 .wrong-answer {
-  border: 3px solid red;
+  border: 1px solid #bc4444;
+  background-color: #bc4444;
 }
 
 .hidden {
@@ -70,7 +87,6 @@ p {
 
 .page-number {
   font-size: 15px;
-  color: grey;
   text-align: center;
   margin: 20px;
 }
