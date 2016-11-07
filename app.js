@@ -83,15 +83,54 @@ $(document).ready(function() {
 		} 
 		return false;
 	}
+<<<<<<< HEAD
 	
 	var restartState = function(){
 		state.pageCount = 0;
 		state.userChoices = [];
 		state.numberCorrect = 0;
+=======
+	$('#next').removeClass('hidden');
+};
+
+
+// event handlers
+$('.start-quiz').click(function(e) {
+	state.pageCount = 0;
+	state.userChoices = [];
+	state.numberCorrect = 0;
+  displayNextQuestion(state, allQuestions);
+
+	$('.quiz-page').removeClass('hidden');
+	$('.answer-choice').removeClass('hidden');
+	$('.intro').addClass('hidden');
+	$('.start-quiz').addClass('hidden');
+  	$('.results').addClass('hidden');
+  	$('.page-number').removeClass('hidden');
+
+});
+
+$('.answer-choice').on('click', function(e) {
+	var choice = $(this).attr('id');
+	addUserChoice(state, choice);
+	checkAnswer(state);
+
+	$('.answer-choice[type=submit]').prop('disabled', true); //disable button
+
+});
+
+$('#next').click(function(e) {
+	e.preventDefault();
+	console.log(state.numberCorrect);
+
+	if (state.pageCount < (allQuestions.length-1)) {
+		increasePageCount(state);
+>>>>>>> d54e4530ac432221069281c3ca57448473eae8c0
 		displayNextQuestion(state, allQuestions);
 	}
 	
   
+<<<<<<< HEAD
 	// Functions that display to screen
 	var displayNextQuestion = function(state, allQuestions) {
 		$('.question').text(allQuestions[state.pageCount].question); //display question
@@ -151,3 +190,19 @@ $(document).ready(function() {
 		}    
 	});
 }); 
+=======
+	}else{
+		$('h1').text(quizScore(state)+'%');
+		$('.score').text(resultsText(state));
+		$('.quiz-page').addClass('hidden');
+		$('.results').removeClass('hidden');
+		$('.start-quiz').removeClass('hidden');
+		$('.page-number').addClass('hidden');
+	}    
+});
+
+}); 
+
+
+
+>>>>>>> d54e4530ac432221069281c3ca57448473eae8c0
