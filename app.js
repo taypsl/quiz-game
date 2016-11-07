@@ -131,8 +131,8 @@ $('.start-quiz').click(function(e) {
 	$('.answer-choice').removeClass('hidden');
 	$('.intro').addClass('hidden');
 	$('.start-quiz').addClass('hidden');
-  $('.results').addClass('hidden');
-  $('.page-number').removeClass('hidden');
+  	$('.results').addClass('hidden');
+  	$('.page-number').removeClass('hidden');
 
 });
 
@@ -154,10 +154,8 @@ $('#next').click(function(e) {
 		displayNextQuestion(state, allQuestions);
   
 	}else{
-		console.log(state.finalScore);
 		$('h1').text(quizScore(state)+'%');
 		$('.score').text(resultsText(state));
-
 		$('.quiz-page').addClass('hidden');
 		$('.results').removeClass('hidden');
 		$('.start-quiz').removeClass('hidden');
