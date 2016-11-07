@@ -35,15 +35,15 @@ button:hover {
   font-size: medium;
 }
 
+.start-quiz {
+  margin-top: 20px;
+}
+
 p {
   font-size: 20px;
 }
 
 /* question pages */
-
-.quiz-page {
-
-}
 
 .answer-choice {
   width: 400px;
@@ -52,27 +52,25 @@ p {
 }
 
 .right-answer {
-  width: 400px;
-  margin-bottom: 20px;
-  border: 1px solid green;
-  padding: 20px;
+  border: 3px solid green;
 }
 
 .wrong-answer {
-  width: 400px;
-  margin-bottom: 20px;
-  border: 1px solid red;
-  padding: 20px;
+  border: 3px solid red;
 }
-
 
 .hidden {
   display: none;
 } 
 
+.final-score {
+  font-size: 70px;
+  margin-bottom: 5px;
+}
+
 .page-number {
   font-size: 15px;
-  color: gainsboro;
+  color: grey;
   text-align: center;
   margin: 20px;
 }
