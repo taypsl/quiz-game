@@ -150,4 +150,4 @@ $(document).ready(function() {
 			$('.page-number').addClass('hidden');
 		}    
 	});
-}); 
+});
