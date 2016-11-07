@@ -50,7 +50,7 @@ $(document).ready(function() {
 	}];
 	
 	var results = [
-      "Not to worry, not to worry, there's still time to prepare before December 17th.",
+    "Not to worry, not to worry, there's still time to prepare before December 17th.",
 	  "Not half bad. You'll be a great wizard, once you've been trained up a bit.",
 	  "Jumpin' Gargoyles, that score is not too shabby!",
 	  "Merlin's pants! With scores like that you could give Hermione Granger a run."
@@ -83,49 +83,13 @@ $(document).ready(function() {
 		} 
 		return false;
 	}
-
+	
 	var restartState = function(){
 		state.pageCount = 0;
 		state.userChoices = [];
 		state.numberCorrect = 0;
-	$('#next').removeClass('hidden');
-};
-
-
-// event handlers
-$('.start-quiz').click(function(e) {
-	state.pageCount = 0;
-	state.userChoices = [];
-	state.numberCorrect = 0;
-  displayNextQuestion(state, allQuestions);
-
-	$('.quiz-page').removeClass('hidden');
-	$('.answer-choice').removeClass('hidden');
-	$('.intro').addClass('hidden');
-	$('.start-quiz').addClass('hidden');
-  	$('.results').addClass('hidden');
-  	$('.page-number').removeClass('hidden');
-
-});
-
-$('.answer-choice').on('click', function(e) {
-	var choice = $(this).attr('id');
-	addUserChoice(state, choice);
-	checkAnswer(state);
-
-	$('.answer-choice[type=submit]').prop('disabled', true); //disable button
-
-});
-
-$('#next').click(function(e) {
-	e.preventDefault();
-	console.log(state.numberCorrect);
-
-	if (state.pageCount < (allQuestions.length-1)) {
-		increasePageCount(state);
 		displayNextQuestion(state, allQuestions);
 	}
-});
 	
   
 	// Functions that display to screen
@@ -186,7 +150,4 @@ $('#next').click(function(e) {
 			$('.page-number').addClass('hidden');
 		}    
 	});
-}); 
-
-
-
+});
