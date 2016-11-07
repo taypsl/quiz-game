@@ -101,6 +101,10 @@ var displayNextQuestion = function(state, allQuestions) {
 		$('.answer-choice#' + i).find('span').text(choices[i]);
 	}
 	$('.page-number').text('Page ' + (state.pageCount + 1) + '/10')
+   $('.answer-choice[type=submit').prop('disabled', false); //re-enable button
+    $('.answer-choice').removeClass('wrong-answer');		
+		$('.answer-choice').removeClass('right-answer');		
+ 		$('#next').addClass('hidden');
 
 };
 
@@ -110,22 +114,25 @@ var checkAnswer = function(state) {
 		state.numberCorrect++; 
 	} 
 	else {
-		$('.answer-choice#' + state.userChoices[state.pageCount]).addClass('wrong-answer');		
+		$('.answer-choice#' + state.userChoices[state.pageCount]).addClass('wrong-answer');
 	}
-	$('#next').toggleClass('hidden');
+	$('#next').removeClass('hidden');
 };
 
 
 // event handlers
 $('.start-quiz').click(function(e) {
-	displayNextQuestion(state, allQuestions);
 	state.pageCount = 0;
 	state.userChoices = [];
 	state.numberCorrect = 0;
+  displayNextQuestion(state, allQuestions);
+
 	$('.quiz-page').removeClass('hidden');
 	$('.answer-choice').removeClass('hidden');
 	$('.intro').addClass('hidden');
 	$('.start-quiz').addClass('hidden');
+  $('.results').addClass('hidden');
+  $('.page-number').removeClass('hidden');
 
 });
 
@@ -145,13 +152,10 @@ $('#next').click(function(e) {
 	if (state.pageCount < (allQuestions.length-1)) {
 		increasePageCount(state);
 		displayNextQuestion(state, allQuestions);
-		$('.answer-choice[type=submit').prop('disabled', false); //re-enable button
-		$('#next').toggleClass('hidden');
-		$('.answer-choice').removeClass('wrong-answer');		
-		$('.answer-choice').removeClass('right-answer');		
+  
 	}else{
 		console.log(state.finalScore);
-		$('h1').text(quizScore(state));
+		$('h1').text(quizScore(state)+'%');
 		$('.score').text(resultsText(state));
 
 		$('.quiz-page').addClass('hidden');
