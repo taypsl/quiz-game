@@ -50,7 +50,7 @@ $(document).ready(function() {
 	}];
 	
 	var results = [
-    "Not to worry, not to worry, there's still time to prepare before December 17th.",
+      "Not to worry, not to worry, there's still time to prepare before December 17th.",
 	  "Not half bad. You'll be a great wizard, once you've been trained up a bit.",
 	  "Jumpin' Gargoyles, that score is not too shabby!",
 	  "Merlin's pants! With scores like that you could give Hermione Granger a run."
@@ -83,13 +83,11 @@ $(document).ready(function() {
 		} 
 		return false;
 	}
-<<<<<<< HEAD
-	
+
 	var restartState = function(){
 		state.pageCount = 0;
 		state.userChoices = [];
 		state.numberCorrect = 0;
-=======
 	$('#next').removeClass('hidden');
 };
 
@@ -125,12 +123,11 @@ $('#next').click(function(e) {
 
 	if (state.pageCount < (allQuestions.length-1)) {
 		increasePageCount(state);
->>>>>>> d54e4530ac432221069281c3ca57448473eae8c0
 		displayNextQuestion(state, allQuestions);
 	}
+});
 	
   
-<<<<<<< HEAD
 	// Functions that display to screen
 	var displayNextQuestion = function(state, allQuestions) {
 		$('.question').text(allQuestions[state.pageCount].question); //display question
