@@ -190,19 +190,6 @@ $('#next').click(function(e) {
 		}    
 	});
 }); 
-=======
-	}else{
-		$('h1').text(quizScore(state)+'%');
-		$('.score').text(resultsText(state));
-		$('.quiz-page').addClass('hidden');
-		$('.results').removeClass('hidden');
-		$('.start-quiz').removeClass('hidden');
-		$('.page-number').addClass('hidden');
-	}    
-});
-
-}); 
 
 
 
->>>>>>> d54e4530ac432221069281c3ca57448473eae8c0
