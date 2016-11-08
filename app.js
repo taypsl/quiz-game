@@ -53,7 +53,8 @@ $(document).ready(function() {
     "Not to worry, not to worry, there's still time to prepare before December 17th.",
 	  "Not half bad. You'll be a great wizard, once you've been trained up a bit.",
 	  "Jumpin' Gargoyles, that score is not too shabby!",
-	  "Merlin's pants! With scores like that you could give Hermione Granger a run."
+	  "Merlin's pants! With scores like that you could give Hermione Granger a run.",
+	  "Yer a wizard, Harry."
   ];
 	
   
@@ -75,7 +76,7 @@ $(document).ready(function() {
 		var resultsIndex = Math.floor(quizScore(state)/25);
 		return results[resultsIndex];
 	};
-	
+
 	var checkAnswer = function(state) {
 		if (state.userChoices[state.pageCount] == allQuestions[state.pageCount].correctAnswer) { 
 			state.numberCorrect++; 
